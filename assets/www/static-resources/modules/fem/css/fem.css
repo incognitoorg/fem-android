@@ -1,0 +1,51 @@
+body {
+	height: 100%;
+}
+
+.back-to-menu {
+	position: fixed !important;
+	bottom: 0;
+	opacity: 0.9;
+}
+
+.section-container section .title a {
+	font-size: 20px !important;
+}
+
+.section-container {
+	margin-bottom: 0 !important;
+}
+
+.js-right-panel>div>div {
+	height: 100%;
+}
+
+.js-fixed-section {
+	padding-left: 10px;
+	background: #efefef;
+	padding-right: 10px;
+}
+
+.js-left-side-menu{
+	padding:0!important;
+}
+.js-show-hide-section{
+	position : fixed!important;
+	top : 0;
+	cursor : pointer;
+	background : white;
+	box-shadow: 0 0 1em;
+}
+.menu-icon{
+	background: url("/static-resources/images/icons/icons.jpg") -103px -149px;
+	display: inline-block;
+	height: 58px;
+	width: 58px;
+	background-position-x: 183;
+	display: inline-block;
+	float:right;
+}
+.js-currently-showing{
+	display: inline-block;
+	padding-top: 1em;
+}
