@@ -45,6 +45,9 @@ define(function(require) {
 					continue;
 				}
 				
+				var oweData = {};
+				
+				
 				for ( var j = 0; j < iouList.length; j++) {
 					var iou = iouList[j];
 					if(iou.fromUserId===userId){

@@ -136,7 +136,10 @@ define(function(require) {
 			this.$('.js-new-expense-form').show();
 			
 			var today = new Date();
-			this.$('.js-expense-date').val(1900+today.getYear() + '-' + ((today.getMonth()+1)>=10?today.getMonth()+1 : '0' +(today.getMonth()+1)) +'-' + (today.getDate()>=10?today.getDate() : '0' +today.getDate()));
+			var today = new Date();
+			var dateStr = 1900+today.getYear() + '-' + ((today.getMonth()+1)>=10?today.getMonth()+1 : '0' +(today.getMonth()+1)) +'-' + (today.getDate()>=10?today.getDate() : '0' +today.getDate());
+			this.$('.js-expense-date').attr('max', dateStr).val(dateStr);
+			
 			
 			function normalize(data){
 				for ( var i = 0; i < data.members.length; i++) {

@@ -147,7 +147,16 @@ define(function(require){
 			componentMapper[data.name]=null;
 		},
 		showMenu : function(event){
-			
+	    	var redir_url = "http://www.facebook.com/connect/login_success.html";
+	    	var  fbConnect= new FBConnect();
+	    	
+	    	
+	    	//fbConnect.connect("605170889512500",redir_url,"touch");
+	    	fbConnect.connect("610955545604534",redir_url,"touch");
+	        
+	        
+	    	/*window.open('http://www.google.com');*/
+	    	 
 			var self = this;
 			if(is_mobile){
 				//this.$('.js-show-hide-section').css({'position':'relative'});

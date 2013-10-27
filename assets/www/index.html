@@ -94,6 +94,9 @@
 	</div>
 	<div class="hide-for-large is-desktop">
 	</div>
+	<!-- cordova -->
+	<script src="cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="static-resources/components/fbapi/fbapi-android.js"></script>
 	<script>
 	function showMask(textToShow){
 		var mask = document.getElementById('mask')
@@ -117,6 +120,13 @@
 		document.getElementById('logincontainer').setAttribute('style', 'display:none;');
 	}
 	
+	// Initialize the Facebook SDK
+    document.addEventListener('deviceready', function() {
+    	/*  alert('device ready called');
+    	window.open("http://www.google.com", { showLocationBar: true });
+    	alert('showwebpage called');  */
+    	
+    });
 	
 	</script>
 	<!-- Find solution for forcing update to this file -->
@@ -124,5 +134,8 @@
 	
 	<script src="static-resources/libraries/require/require.js"
 		type="text/javascript"></script>
+		
+		
+		
 </body>
 </html>

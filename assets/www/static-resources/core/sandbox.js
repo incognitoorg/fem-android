@@ -30,7 +30,7 @@ define(function (require) {
 		var prefix = EnvVariables.API_URL;
 		var url = prefix+options.url;
 		
-		console.error('url '+ url);
+		console.error('Making ajax call to url :  '+ url);
 		
 		var type = options.type;
 		var contentType = options.contentType;
@@ -51,11 +51,15 @@ define(function (require) {
 			  loader && loader.addClass('js-loader');
 		  },
 		  'success': function(response){
+			  		alert("Ajax succes : " + JSON.stringify(response));
+			  		console.info("Ajax succes : " + JSON.stringify(response))
 				  callback.call(context, response);
 				  loader && loader.removeClass('js-loader');
 		  },
 		  'error': function(ajax, error){
-			  console.log(JSON.stringify(ajax) + JSON.stringify(error));
+			  alert('Error occured in ajax');
+			  console.error('error in ajax');
+			  console.error(JSON.stringify(error));
 			  if(errorCallback){
 				  errorCallback.call(context, response);
 			  } else {
