@@ -12,47 +12,46 @@ FBConnect.prototype.connect = function(client_id, redirect_uri, display) {
     this.client_id = client_id;
     this.redirect_uri = redirect_uri;
 
-    var authorize_url = "https://graph.facebook.com/oauth/authorize?";
+    //var authorize_url = "https://graph.facebook.com/oauth/authorize?";
+    var authorize_url = "https://www.facebook.com/dialog/oauth?";
     authorize_url += "client_id=" + client_id;
     authorize_url += "&redirect_uri=" + redirect_uri;
     authorize_url += "&display=" + (display ? display : "touch");
     authorize_url += "&type=user_agent";
-    //alert(1)
-    var ref = window.open(authorize_url, '_blank', 'locatio');
-    
+    var ref = window.open(authorize_url, '_blank', 'location=no');
     
     var self = this;
     
     ref.addEventListener('loadstart', function(event) {
-    	alert('loadstart' + event.url); 
     	if(event.url.indexOf(redirect_uri)!==-1){
 
     		var access_token = event.url.split("access_token=")[1];
-    		alert("Access_token:" + access_token);
-    		/*var error_reason = event.url.split("error_reason=")[1];
-    		if(access_token != undefined){                         
-    			alert('success, token follows :');
-    			self.accessToken= = access_token = access_token.split("&")[0];
+    		var error_reason = event.url.split("error_reason=")[1];
+    		if(access_token){      
+    			alert('Woohooo, its a smashing success. Success token follows');
+    			self.accessToken = access_token = access_token.split('&')[0];
+    			alert(self.accessToken);
     			ref.close();
     		}
-    		if(error_reason != undefined){
+    		if(error_reason){
     			alert('error occured');
+    			alert(error_reason);
     			ref.close();
-    		}*/
+    		}
     	}
 
 
     });
     
     ref.addEventListener('loadstop', function(event) { 
-    	alert('loadstop' + event.url); 
+    	//alert('loadstop' + event.url); 
     });
     
     ref.addEventListener('exit', function(event) { 
-    	alert('exit' + event.url); 
+    	//alert('exit' + event.url); 
     });
     ref.addEventListener('loaderror', function(event) { 
-    	alert('loaderror' + event.url); 
+    	//alert('loaderror' + event.url); 
     });
     
 }
