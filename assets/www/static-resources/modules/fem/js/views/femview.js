@@ -151,8 +151,7 @@ define(function(require){
 	    	var  fbConnect= new FBConnect();
 	    	
 	    	
-	    	//fbConnect.connect("605170889512500",redir_url,"touch");
-	    	fbConnect.connect("610955545604534",redir_url,"touch");
+	    	fbConnect.connect("605170889512500",redir_url,"touch");
 	        
 	        
 	    	/*window.open('http://www.google.com');*/
