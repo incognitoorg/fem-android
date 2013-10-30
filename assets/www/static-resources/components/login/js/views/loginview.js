@@ -3,28 +3,28 @@ define(function(require){
 	
 	var Sandbox = require('sandbox');
 	
-	//var GoogleAPI = require('components/googleapi/googleapi');
-	//var FBAPI = require('components/fbapi/fbapi');
+	var GoogleAPI = require('components/googleapi/googleapi');
+	var FBAPI = require('components/fbapi/fbapi');
 	
-	/*var APIMapper = {
+	var APIMapper = {
 			facebook : FBAPI,
 			google : GoogleAPI
-	};*/
+	};
 	
 	var LoginView = Backbone.View.extend({
 		initialize : function(options){
 			$('#mask').html('Checking if logged in....');
-			this.userInfo = {"userId":"aglzfmZlbS1kZXZyDAsSBFVzZXIYoYcIDA","firstName":"Vishwanath","lastName":"Arondekar","fullName":"Vishwanath Arondekar","facebookId":"653349267","loginType":"facebook","lastLoggedInAt":"2013-07-13T19:37:59.362Z","accessToken":"ca30a6b7-bd8c-4bb2-b92a-092413cd10a0","kind":"userendpoint#userItem","etag":"\"5VjGNrtbsIJt6x-ab6evisrGzPU/kuuTPPYSsQIRfuBpRhg_uLmt2Ns\"","facebook":{"authToken":"CAAImZAlPl1jQBAKhjgLeo9InFgxMoyajlAkZBBnhCiwZBqq53v6WfyM4fE4rdLTvQKShnAp5ZBc3pS2NOkgfHx1rL4aMOyzTEgnB3tevB5rZCHZBXcoCrXLmlh69A9ZCSBdchk6Bnlo3ksZAVzLJfFBkAIS8ZB1qIh4zk9F5rlBhZBdwZDZD"}};
+			/*this.userInfo = {"userId":"aglzfmZlbS1kZXZyDAsSBFVzZXIYoYcIDA","firstName":"Vishwanath","lastName":"Arondekar","fullName":"Vishwanath Arondekar","facebookId":"653349267","loginType":"facebook","lastLoggedInAt":"2013-07-13T19:37:59.362Z","accessToken":"ca30a6b7-bd8c-4bb2-b92a-092413cd10a0","kind":"userendpoint#userItem","etag":"\"5VjGNrtbsIJt6x-ab6evisrGzPU/kuuTPPYSsQIRfuBpRhg_uLmt2Ns\"","facebook":{"authToken":"CAAImZAlPl1jQBAKhjgLeo9InFgxMoyajlAkZBBnhCiwZBqq53v6WfyM4fE4rdLTvQKShnAp5ZBc3pS2NOkgfHx1rL4aMOyzTEgnB3tevB5rZCHZBXcoCrXLmlh69A9ZCSBdchk6Bnlo3ksZAVzLJfFBkAIS8ZB1qIh4zk9F5rlBhZBdwZDZD"}};
             
-			//if(userInfo && JSON.parse(userInfo)){
+			if(userInfo && JSON.parse(userInfo)){
 				//this.userInfo = JSON.parse(userInfo);
 				this.startApp(userInfo);
 				this.hide();
 				hideMask();
 				return;
-			//}
+			}*/
 			
-			/*
+			
 			var userInfo = this.getFromSession();
 			if(userInfo && JSON.parse(userInfo)){
 				$('#mask').html('Logging in....');
@@ -32,7 +32,7 @@ define(function(require){
 				this.startApp(userInfo);
 				this.hide();
 				return;
-			}*/
+			}
 			this.options = _.extend({
 				//defaults here
 			}, options);

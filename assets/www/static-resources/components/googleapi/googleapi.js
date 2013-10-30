@@ -25,6 +25,35 @@ define(function(require){
 			makeApiCall(options);
 		});
 	}
+	
+	function checkAuthPhoneGap(options){
+		var authUrl = 'https://accounts.google.com/o/oauth2/auth?' + $.param({
+		    client_id: clientId,
+		    redirect_uri: "http://localhost:8888",
+		    response_type: 'code',
+		    scope: scopes
+		});
+
+		var authWindow = window.open(authUrl, '_blank', 'location=no,toolbar=no');
+		
+		
+		authWindow.addEventListener('loadstart', function(event) {
+			alert('loadstart called' + event.url)
+	    	if(event.url.indexOf("localhost:8888")!==-1){
+
+	    		var url = event.url;
+	    		  var code = authToken = /\?code=(.+)$/.exec(url);
+	    		  var error = /\?error=(.+)$/.exec(url);
+
+	    		  if (error) {
+	    		    authWindow.close();
+	    		  }
+	    		  makeApiCall(options)
+	    		  authWindow.close();
+	    	}
+	    });
+	}
+	
 
 	function handleAuthResult(authResult) {
 		makeApiCall();
@@ -38,6 +67,7 @@ define(function(require){
 
 //	Load the API and make an API call.  Display the results on the screen.
 	function makeApiCall(options) {
+		alert('makeApiCall called');
 		// Step 4: Load the Google+ API
 		gapi.client.load('plus', 'v1', function() {
 			// Step 5: Assemble the API request
@@ -122,7 +152,8 @@ define(function(require){
 
 
 	return {
-		checkAndDoLogin : checkAuth,
+/*		checkAndDoLogin : checkAuth,*/
+		checkAndDoLogin : checkAuthPhoneGap,
 		getContacts : getContacts,
 		getAuthToken :  function(){
 			return authToken;

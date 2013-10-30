@@ -74,7 +74,7 @@ define(function(require) {
 						if(!isDataObtained){
 							// Call out to the Graph API for the friends list
 							$.ajax({
-								url: 'https://graph.facebook.com/me/friends?method=get&access_token=' + login.getInfo().facebook.authToken + '&pretty=0&sdk=joey',
+								url: 'https://graph.facebook.com/me/friends?method=get&access_token=' + FBAPI.getAuthToken() + '&pretty=0&sdk=joey',
 								dataType: "jsonp",
 								success: function(response){
 								    if(response.error && response.error.type==="OAuthException"){
@@ -143,7 +143,8 @@ define(function(require) {
 								url: "https://www.google.com/m8/feeds/contacts/default/full?alt=json&max-results=9999",
 				                dataType: "jsonp",
 				                headers: "GData-Version: 3.0",
-				                data:{access_token:  login.getInfo().google.authToken},
+/*				                data:{access_token:  login.getInfo().google.authToken},*/
+				                data:{access_token:  GoogleAPi.getAuthToken()},
 								success: function(results){
 									isGoogleDataObtained = true;
 									googleDataObtained = results.feed.entry;
