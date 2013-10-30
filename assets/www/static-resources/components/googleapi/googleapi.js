@@ -29,29 +29,62 @@ define(function(require){
 	function checkAuthPhoneGap(options){
 		var authUrl = 'https://accounts.google.com/o/oauth2/auth?' + $.param({
 		    client_id: clientId,
-		    redirect_uri: "http://localhost:8888",
+		    redirect_uri: "http://localhost:8888/",
 		    response_type: 'code',
 		    scope: scopes
 		});
 
 		var authWindow = window.open(authUrl, '_blank', 'location=no,toolbar=no');
 		
+		 var deferred = $.Deferred();
 		
-		authWindow.addEventListener('loadstart', function(event) {
-			alert('loadstart called' + event.url)
-	    	if(event.url.indexOf("localhost:8888")!==-1){
+		authWindow.addEventListener('loadstart', function(e) {
+			if(e.url.indexOf("localhost:8888")!==-1){
+				try {
+					var url = e.url;
 
-	    		var url = event.url;
-	    		  var code = authToken = /\?code=(.+)$/.exec(url);
-	    		  var error = /\?error=(.+)$/.exec(url);
 
-	    		  if (error) {
-	    		    authWindow.close();
-	    		  }
-	    		  makeApiCall(options)
-	    		  authWindow.close();
-	    	}
-	    });
+					var code = /\?code=(.+)$/.exec(url);
+					var error = /\?error=(.+)$/.exec(url);
+					alert(1);
+					if (code || error) {
+						//Always close the browser when match is found
+						authWindow.close();
+					}
+
+					alert(2);
+
+					if (code) {
+
+						alert(3);
+						//Exchange the authorization code for an access token
+						$.post('https://accounts.google.com/o/oauth2/token', {
+							code: code[1],
+							client_id: clientId,
+							client_secret: EnvVariables.GOOGLE_CLIENT_SECRET,
+							redirect_uri: "http://localhost:8888/",
+							grant_type: 'authorization_code'
+						}).done(function(data) {
+							authToken = data.access_token;
+							makeApiCall(options)
+							
+						}).fail(function(response) {
+							deferred.reject(response.responseJSON);
+						});
+						alert(4);
+
+					} else if (error) {
+						//The user denied access to the app
+						deferred.reject({
+							error: error[1]
+						});
+					}
+				} catch (error){
+					alert(error)
+				}
+				alert(5);
+			}
+        });
 	}
 	
 
@@ -67,9 +100,27 @@ define(function(require){
 
 //	Load the API and make an API call.  Display the results on the screen.
 	function makeApiCall(options) {
-		alert('makeApiCall called');
+		alert("authToken : " + authToken)
+		$.ajax({
+			url: "https://www.googleapis.com/oauth2/v1/userinfo",
+		    dataType: "jsonp",
+		    headers: "GData-Version: 3.0",
+		/*				                data:{access_token:  login.getInfo().google.authToken},*/
+		    data:{access_token:  authToken},
+			success: function(results){
+				
+				alert('Success data' + JSON.stringify(results));
+			}, 
+			error : function(xhr, errorText, error){
+			   alert('error occurred' + errorText);
+			   
+			}
+		});
+		
+		
+		
 		// Step 4: Load the Google+ API
-		gapi.client.load('plus', 'v1', function() {
+		/*gapi.client.load('plus', 'v1', function() {
 			// Step 5: Assemble the API request
 			var request = gapi.client.plus.people.get({
 				'userId': 'me'
@@ -78,10 +129,11 @@ define(function(require){
 			request.execute(function(resp) {
 				if(options.callback){
 					resp.authToken = authToken;
+					alert('User data from google api ' + JSON.stringify(resp));
 					options.callback.call(options.context||this, {loginType : 'google', googleId : resp.id, data : resp});
 				}
 			});
-		});
+		});*/
 
 
 
@@ -115,7 +167,6 @@ define(function(require){
 
 			for (var j = 0; j < emailAddresses.length; j++) {
 				var emailAddress = emailAddresses[j].getAddress();
-				alert('email = ' + emailAddress);
 			}    
 		}
 	};

@@ -51,7 +51,7 @@ define(function (require) {
 			  loader && loader.addClass('js-loader');
 		  },
 		  'success': function(response){
-			  		alert("Ajax succes : " + JSON.stringify(response));
+			  		//alert("Ajax succes : " + JSON.stringify(response));
 			  		console.info("Ajax succes : " + JSON.stringify(response))
 				  callback.call(context, response);
 				  loader && loader.removeClass('js-loader');
